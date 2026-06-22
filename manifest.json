@@ -1,0 +1,15 @@
+{
+  "manifest_version": 3,
+  "name": "USPS Pickup Auto‑Filler",
+  "version": "1.0",
+  "description": "Automatically fills the USPS package‑pickup form with your saved information and submits it.",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["https://tools.usps.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://tools.usps.com/schedule-pickup-steps.htm*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
