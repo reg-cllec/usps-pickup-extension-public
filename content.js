@@ -5,21 +5,23 @@
   // ------------------------------------------------------------
   // 1️⃣  Your personal data – edit if you ever need to change anything
   // ------------------------------------------------------------
-  // Personal data is loaded from an external JSON file (personal_info.json) which is .gitignored.
-  // If the file is unavailable, the script will use empty placeholders.
-  let data = {
-    firstName: "",
-    lastName: "",
-    street: "",
-    city: "",
-    state: "",
-    zip5: "",
-    zip4: "",
-    phone: "",
-    email: "",
-    packages: "1",
-    weight: "1",
-    special: ""
+  // Personal data will be loaded from personal_info.json (git‑ignored).
+  // Until the file is fetched, an empty object is used.
+  let data = {};
+
+  // Load the JSON file and populate `data` before proceeding.
+  const loadPersonalInfo = async () => {
+    try {
+      const resp = await fetch(chrome.runtime.getURL('personal_info.json'));
+      if (resp.ok) {
+        const json = await resp.json();
+        data = json;
+      } else {
+        console.warn('personal_info.json not found or inaccessible');
+      }
+    } catch (e) {
+      console.warn('Error loading personal_info.json', e);
+    }
   };
 
 
@@ -206,8 +208,14 @@
   };
 
   if (document.readyState === "complete" || document.readyState === "interactive") {
-    run();
+    (async () => {
+      await loadPersonalInfo();
+      run();
+    })();
   } else {
-    window.addEventListener("DOMContentLoaded", run);
+    window.addEventListener("DOMContentLoaded", async () => {
+      await loadPersonalInfo();
+      run();
+    });
   }
 })();
