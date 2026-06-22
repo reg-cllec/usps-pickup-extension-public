@@ -5,20 +5,23 @@
   // ------------------------------------------------------------
   // 1️⃣  Your personal data – edit if you ever need to change anything
   // ------------------------------------------------------------
-  const data = {
-    firstName: "Mike",
-    lastName: "Feng",
-    street: "80 Tumbleweed Ct",
-    city: "San Ramon",
-    state: "CA",                 // two‑letter abbreviation
-    zip5: "94583",               // first 5 digits
-    zip4: "",                    // optional 4‑digit extension (empty)
-    phone: "408-780-5205",
-    email: "reg.cllec@gmail.com",
+  // Personal data is loaded from an external JSON file (personal_info.json) which is .gitignored.
+  // If the file is unavailable, the script will use empty placeholders.
+  let data = {
+    firstName: "",
+    lastName: "",
+    street: "",
+    city: "",
+    state: "",
+    zip5: "",
+    zip4: "",
+    phone: "",
+    email: "",
     packages: "1",
-    weight: "1",                  // pounds
-    special: "Pick up from front door; if not find the package please ring door bell"
+    weight: "1",
+    special: ""
   };
+
 
   // ------------------------------------------------------------
   // 2️⃣  Helper utilities
